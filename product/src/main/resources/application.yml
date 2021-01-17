@@ -8,9 +8,22 @@ spring:
       host: localhost
       port: 27017
       database: shopping
+  profiles:
+    active:
+    - test
 product:
   currency:
   - INR
   - USD
   - EUR
   - DINR
+  
+---
+server:
+  port: 9094
+
+spring:
+  config:
+    activate:
+      on-profile:
+      - test
