@@ -19,10 +19,10 @@ import lombok.NoArgsConstructor;
 @Document(collection = "product")
 public class Product {
 	@Id
-	private Integer id;
+	private String id;
 	@NotNull
 	private String name;
-	@NotNull(message = "category is maditory")
+	@NotNull(message = "category is maditory field")
 	private Category category;
 	@Min(0)
 	private double price;

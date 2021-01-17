@@ -4,20 +4,32 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.dineshlearnings.product.configuration.ProductConfiguration;
+import com.dineshlearnings.product.exceptionhandling.CurrencynotValidException;
+import com.dineshlearnings.product.exceptionhandling.OfferNotValidException;
 import com.dineshlearnings.product.model.Product;
 import com.dineshlearnings.product.repository.ProductRepository;
 
+import lombok.AllArgsConstructor;
+
 @Service
+@AllArgsConstructor
 public class ProductService {
 
 	private ProductRepository productRepository;
 
-	public ProductService(ProductRepository productRepository) {
-		super();
-		this.productRepository = productRepository;
-	}
+	private ProductConfiguration productConfiguration;
 
 	public String addProduct(Product product) {
+
+		if (!productConfiguration.getCurrency().contains(product.getCurrency())) {
+			throw new CurrencynotValidException(
+					"Invalid Currenct: Valid currency are" + productConfiguration.getCurrency());
+		}
+
+		if (product.getPrice() == 0 && product.getDiscount() > 0) {
+			throw new OfferNotValidException("Offers not applicabul for 0 price");
+		}
 		productRepository.save(product);
 		return "Success!";
 	}
@@ -30,7 +42,7 @@ public class ProductService {
 		return productRepository.findByCategory(category);
 	}
 
-	public Product productById(Integer id) {
+	public Product productById(String id) {
 		return productRepository.findById(id).get();
 	}
 
@@ -39,7 +51,7 @@ public class ProductService {
 		return "product update success!";
 	}
 
-	public String deleteProductById(Integer id) {
+	public String deleteProductById(String id) {
 		productRepository.deleteById(id);
 		return "ProductDeleted successfully!";
 	}
