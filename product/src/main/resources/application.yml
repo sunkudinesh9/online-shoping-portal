@@ -10,29 +10,30 @@ spring:
       database: shopping
   profiles:
     active:
-    - test
+    - local
+  boot:
+    admin:
+      client:
+        url:
+        - http://localhost:9999
 product:
   currency:
   - INR
   - USD
   - EUR
   - DINR
-  
----
-server:
-  port: 9094
-
-spring:
-  config:
-    activate:
-      on-profile:
-      - test
-      
 logging:
-    file:
-      name: ./logs/product.log
-    
-    rollingpolicy:
-      max-file-size:
-        - 5mb
-      
+  file:
+    name: ./logs/product.log
+  rollingpolicy:
+    max-file-size:
+    - 5mb
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+        - '*'
+  endpoint:
+    health:
+      show-details: ALWAYS
