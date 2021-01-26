@@ -1,2 +1,17 @@
 server:
   port: 9999
+spring:
+  mail:
+    host: smtp.mailtrap.io
+    port: 2525
+    username: b039c06cdc3d36
+    password: 1233cfbe509123
+    test-connection: true
+  boot:
+    admin:
+      notify:
+        mail:
+          to:
+          - b039c06cdc3d36
+          ignore-changes:
+          - ''
