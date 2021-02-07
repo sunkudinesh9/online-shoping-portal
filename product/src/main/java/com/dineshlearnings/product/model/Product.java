@@ -9,6 +9,8 @@ import javax.validation.constraints.NotNull;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,6 +19,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Document(collection = "product")
+@ApiModel("This entity give the Product detials")
 public class Product {
 	@Id
 	private String id;
@@ -25,6 +28,7 @@ public class Product {
 	@NotNull(message = "category is maditory field")
 	private Category category;
 	@Min(0)
+	@ApiModelProperty("Price of the product")
 	private double price;
 	private String currency;
 	@Max(100)
