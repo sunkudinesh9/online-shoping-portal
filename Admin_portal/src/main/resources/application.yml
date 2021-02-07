@@ -2,16 +2,16 @@ server:
   port: 9999
 spring:
   mail:
-    host: smtp.gmail.com
-    port: 587
-    username: sunku.dinesh9@gmail.com
-    password: SUDHAKARgupta
+    host: smtp.mailtrap.io
+    port: 2525
+    username: b039c06cdc3d36
+    password: 1233cfbe509123
     test-connection: true
   boot:
     admin:
       notify:
         mail:
           to:
-          - vamsi.tharun4@gmail.com
+          - b039c06cdc3d36
           ignore-changes:
           - ''
