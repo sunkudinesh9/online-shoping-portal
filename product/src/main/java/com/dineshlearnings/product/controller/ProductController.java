@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dineshlearnings.product.model.Product;
+import com.dineshlearnings.product.model.ProductResponse;
 import com.dineshlearnings.product.service.ProductService;
 
 import io.swagger.annotations.Api;
@@ -35,10 +36,11 @@ public class ProductController {
 
 	@PostMapping("/addproduct")
 	@ApiOperation("To add the product")
-	ResponseEntity<Product> addProduct(@ApiParam("Give the product details") @RequestBody @Valid Product product) {
-		String status = productService.addProduct(product);
-		log.info(status);
-		return ResponseEntity.status(HttpStatus.CREATED).body(product);
+	ResponseEntity<ProductResponse> addProduct(
+			@ApiParam("Give the product details") @RequestBody @Valid Product product) {
+		ProductResponse productResponse = productService.addProduct(product);
+		log.info(productResponse.getStatus());
+		return ResponseEntity.status(HttpStatus.CREATED).body(productResponse);
 	}
 
 	@GetMapping("/productlist")
@@ -59,12 +61,12 @@ public class ProductController {
 	}
 
 	@PutMapping("/productupdate")
-	String productUpdate(@RequestBody @Valid Product product) {
+	ProductResponse productUpdate(@RequestBody @Valid Product product) {
 		return productService.updateproduct(product);
 	}
 
 	@DeleteMapping("/product/{id}")
-	String deleteProductById(@PathVariable String id) {
+	ProductResponse deleteProductById(@PathVariable String id) {
 		return productService.deleteProductById(id);
 	}
 }
